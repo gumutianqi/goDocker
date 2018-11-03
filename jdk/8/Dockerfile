@@ -1,5 +1,4 @@
-# CentOS based base image with Oracle JDK 8
-# Inspired by lwieske/java-8, but with fewer layers
+# CentOS7 based base image with Oracle JDK 8u192
 
 FROM centos:7
 
