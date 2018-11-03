@@ -12,3 +12,6 @@ curl -L https://alibaba.github.io/arthas/install.sh | sh
 
 ENV JAVA_HOME /usr/java/default
 
+ENV JRE_HOME=$JAVA_HOME/jre \
+    CLASSPATH=$JAVA_HOME/lib:$JAVA_HOME/jre/lib \
+    PATH=$JAVA_HOME/bin:$PATH
