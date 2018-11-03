@@ -8,7 +8,9 @@ http://download.oracle.com/otn-pub/java/jdk/8u192-b12/750e1c8617c5452694857ad95c
 yum localinstall -y jdk-8u192-linux-x64.rpm && \
 yum clean all && \
 rm jdk-8u192-linux-x64.rpm && \
-curl -L https://alibaba.github.io/arthas/install.sh | sh
+curl -O https://maven.aliyun.com/repository/public/com/taobao/arthas/arthas-packaging/3.0.4/arthas-packaging-3.0.4-bin.zip && \
+unzip arthas-packaging-bin.zip && \
+./arthas/install-local.sh
 
 ENV JAVA_HOME /usr/java/default
 
