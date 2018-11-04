@@ -2,9 +2,10 @@
 FROM centos:7
 
 LABEL author="larrykoo@126.com" \
-      Description="基于CentOS 7,安装了oracle jdk8u192"  Version="1.0"
+      Description="基于CentOS7,安装了oracle jdk8u192"  Version="1.0"
 
-RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup && \
+RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup && \
     curl -o /etc/yum.repos.d/CentOS-Base.repo --progress-bar http://mirrors.163.com/.help/CentOS7-Base-163.repo && \
     yum clean all && yum makecache && \
     yum -y install telnet sysstat unzip && \
@@ -19,8 +20,7 @@ RUN yum localinstall -y jdk-8u192-linux-x64.rpm && \
 ## 安装 alibaba anrhas 工具
 ## curl https://maven.aliyun.com/repository/public/com/taobao/arthas/arthas-packaging/3.0.4/arthas-packaging-3.0.4-bin.zip
 COPY arthas-packaging-3.0.4-bin.zip /root/arthas.zip
-RUN cd /root/ && unzip arthas.zip && ./install-local.sh && \
-    rm -rf *.jar && rm -rf arthas.zip
+RUN unzip /root/arthas.zip -d /root/arthas && cd /root/arthas && ./install-local.sh
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
