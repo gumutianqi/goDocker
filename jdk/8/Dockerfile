@@ -1,19 +1,33 @@
 # CentOS7 based base image with Oracle JDK 8u192
-
 FROM centos:7
 
-RUN curl -LO --insecure --junk-session-cookies --location --remote-name --silent \
---header "Cookie: oraclelicense=accept-securebackup-cookie" \
-http://download.oracle.com/otn-pub/java/jdk/8u192-b12/750e1c8617c5452694857ad95c3ee230/jdk-8u192-linux-x64.rpm && \
-yum localinstall -y jdk-8u192-linux-x64.rpm && \
-yum clean all && \
-rm jdk-8u192-linux-x64.rpm && \
-curl -O https://maven.aliyun.com/repository/public/com/taobao/arthas/arthas-packaging/3.0.4/arthas-packaging-3.0.4-bin.zip && \
-unzip arthas-packaging-bin.zip && \
-./arthas/install-local.sh
+LABEL author="larrykoo@126.com" \
+      Description="基于CentOS 7,安装了oracle jdk8u192"  Version="1.0"
 
+RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup && \
+    curl -o /etc/yum.repos.d/CentOS-Base.repo --progress-bar http://mirrors.163.com/.help/CentOS7-Base-163.repo && \
+    yum clean all && yum makecache && \
+    yum -y install telnet sysstat unzip && \
+    yum clean all
+
+## install jdk8
+COPY jdk-8u192-linux-x64.rpm jdk-8u192-linux-x64.rpm
+RUN yum localinstall -y jdk-8u192-linux-x64.rpm && \
+    yum clean all && \
+    rm jdk-8u192-linux-x64.rpm
+
+## 安装 alibaba anrhas 工具
+## curl https://maven.aliyun.com/repository/public/com/taobao/arthas/arthas-packaging/3.0.4/arthas-packaging-3.0.4-bin.zip
+COPY arthas-packaging-3.0.4-bin.zip /root/arthas.zip
+RUN cd /root/ && unzip arthas.zip && ./install-local.sh && \
+    rm -rf *.jar && rm -rf arthas.zip
+
+# Default to UTF-8 file.encoding
+ENV LANG C.UTF-8
+
+## create a JAVA_HOME
+ENV JAVA_VERSION 8u192
 ENV JAVA_HOME /usr/java/default
-
 ENV JRE_HOME=$JAVA_HOME/jre \
     CLASSPATH=$JAVA_HOME/lib:$JAVA_HOME/jre/lib \
-    PATH=$JAVA_HOME/bin:$PATH
+    PATH=$JAVA_HOME/bin:$PATH:${CLASSPATH}
