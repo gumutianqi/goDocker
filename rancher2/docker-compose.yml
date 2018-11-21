@@ -1,0 +1,14 @@
+version: '2.1'
+
+services:
+  rancher:
+    image: rancher/rancher:${APP_VERSION}
+    restart: unless-stopped
+    container_name: ${APP_NAME}
+    user: root
+    volumes:
+      - /var/data/${APP_NAME}/mysql:/var/lib/mysql
+    ports:
+      - "8888:80"
+      - "8443:443"
+      
