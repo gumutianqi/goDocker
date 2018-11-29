@@ -1,0 +1,29 @@
+version: '2.1'
+
+services:
+  hitchhiker:
+    image: registry.cn-hangzhou.aliyuncs.com/brook/hitchhiker-cn:${APP_VERSION}
+    container_name: hitchhiker
+    environment:
+      - HITCHHIKER_APP_HOST=http://localhost:5555/
+      - HITCHHIKER_DB_HOST=172.16.1.17
+      - HITCHHIKER_DB_PORT=3306
+      - HITCHHIKER_DB_USERNAME=hitchhiker
+      - MYSQL_ROOT_PASSWORD=Hitchhiker@123
+      - MYSQL_DATABASE=hitchhiker
+      - HITCHHIKER_APP_LANG=zh
+      - HITCHHIKER_SYNC_ONOFF=true
+      - HITCHHIKER_SAFE_VM=true
+      - HITCHHIKER_STRESS_PORT=15000
+      - HITCHHIKER_MAIL_CUSTOM_TYPE=smtp
+      - HITCHHIKER_MAIL_SMTP_HOST=smtp.126.com
+      - HITCHHIKER_MAIL_SMTP_USER=larrykoo@126.com
+      - HITCHHIKER_MAIL_SMTP_PASS=dEuqLYe8Hj72289n
+      - HITCHHIKER_MAIL_SMTP_NICKNAME=古工
+    ports:
+      - "5555:5555"
+      - "15000:15000"
+    volumes:
+      - ${VOLUMES_BASE}/hitchhiker/data:/usr/src/Hitchhiker/build/global_data/project
+      - ${VOLUMES_BASE}/hitchhiker/backup:/usr/src/Hitchhiker/build/backup
+      - ${VOLUMES_BASE}/hitchhiker/logs:/usr/src/Hitchhiker/build/logs
