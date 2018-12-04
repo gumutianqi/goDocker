@@ -1,0 +1,18 @@
+version: '2.1'
+
+services:
+  hitchhiker:
+    image: jboss/keycloak:${APP_VERSION}
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - DB_VENDOR=mysql
+      - DB_ADDR=172.16.1.17
+      - DB_PORT=3306
+      - DB_DATABASE=keycloak
+      - DB_USER=keycloak
+      - DB_PASSWORD=Keycloak@123
+      - KEYCLOAK_LOGLEVEL=INFO   # 支持的日志级别ALL，DEBUG，ERROR，FATAL，INFO，OFF，TRACE和WARN。
+    ports:
+      - "8855:8080"
