@@ -4,6 +4,7 @@ services:
   hitchhiker:
     image: registry.cn-hangzhou.aliyuncs.com/brook/hitchhiker-cn:${APP_VERSION}
     container_name: hitchhiker
+    restart: unless-stopped
     environment:
       - HITCHHIKER_APP_HOST=http://localhost:5555/
       - HITCHHIKER_DB_HOST=172.16.1.17

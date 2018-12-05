@@ -4,6 +4,7 @@ services:
   hitchhiker:
     image: jboss/keycloak:${APP_VERSION}
     container_name: keycloak
+    restart: unless-stopped
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin

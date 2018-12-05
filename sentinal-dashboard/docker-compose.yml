@@ -3,7 +3,7 @@ version: '2.1'
 services:
   sentinel-dashboard:
     image: sentinel-dashboard:${APP_VERSION}
-    restart: always
+    restart: unless-stopped
     container_name: ${APP_NAME}
     user: root
     ports:
