@@ -6,14 +6,14 @@ services:
     container_name: hitchhiker
     restart: unless-stopped
     environment:
-      - HITCHHIKER_APP_HOST=http://localhost:5555/
-      - HITCHHIKER_DB_HOST=172.16.1.17
+      - HITCHHIKER_APP_HOST=http://mac.k.9kb.me:5555/
+      - HITCHHIKER_DB_HOST=mac.k.9kb.me
       - HITCHHIKER_DB_PORT=3306
       - HITCHHIKER_DB_USERNAME=hitchhiker
       - MYSQL_ROOT_PASSWORD=Hitchhiker@123
       - MYSQL_DATABASE=hitchhiker
       - HITCHHIKER_APP_LANG=zh
-      - HITCHHIKER_SYNC_ONOFF=true
+      - HITCHHIKER_SYNC_ONOFF=false
       - HITCHHIKER_SAFE_VM=true
       - HITCHHIKER_STRESS_PORT=15000
       - HITCHHIKER_MAIL_CUSTOM_TYPE=smtp
