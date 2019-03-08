@@ -17,10 +17,8 @@ RUN yum localinstall -y jdk-8u192-linux-x64.rpm && \
     yum clean all && \
     rm jdk-8u192-linux-x64.rpm
 
-## 安装 alibaba anrhas 工具
-## curl https://maven.aliyun.com/repository/public/com/taobao/arthas/arthas-packaging/3.0.4/arthas-packaging-3.0.4-bin.zip
-COPY arthas-packaging-3.0.4-bin.zip /root/arthas.zip
-RUN unzip /root/arthas.zip -d /root/arthas && cd /root/arthas && ./install-local.sh
+## 安装 alibaba anrhas 工具: https://github.com/alibaba/arthas
+RUN wget https://alibaba.github.io/arthas/arthas-boot.jar
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
