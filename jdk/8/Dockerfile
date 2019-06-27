@@ -18,7 +18,7 @@ RUN yum localinstall -y jdk-8u192-linux-x64.rpm && \
     rm jdk-8u192-linux-x64.rpm
 
 ## 安装 alibaba anrhas 工具: https://github.com/alibaba/arthas
-RUN wget https://alibaba.github.io/arthas/arthas-boot.jar
+RUN curl -O https://alibaba.github.io/arthas/arthas-boot.jar
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8

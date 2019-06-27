@@ -6,8 +6,8 @@ services:
     restart: unless-stopped
     container_name: ${APP_NAME}
     user: root
-    # volumes:
-      # - /var/data/${APP_NAME}/mysql:/var/lib/mysql
+    volumes:
+      - ${VOLUMES_BASE}/${APP_NAME}/mysql:/var/lib/mysql
     ports:
       - "8899:80"
       - "8889:443"
